@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyperliquid OnRamp Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0e14;
+            --secondary-bg: #111722;
+            --accent: #6be3bf;
+            --accent-hover: #5ac9a7;
+            --text: #e4e6eb;
+            --text-secondary: #9ca3af;
+            --border: #2d3748;
+            --card-bg: #151b27;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--secondary-bg);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6be3bf, #70c4d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .note {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 5px;
+            max-width: 700px;
+        }
+
+        main {
+            padding: 40px 0;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .image-container {
+            margin: 25px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .caption {
+            padding: 12px;
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+        }
+
+        .card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .alert {
+            background-color: rgba(107, 227, 191, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .alert-title {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .alert-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .alert p {
+            margin-bottom: 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            background-color: var(--accent);
+            color: var(--primary-bg);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        footer {
+            background-color: var(--secondary-bg);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .referral-info {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .referral-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .referral-code {
+            background-color: var(--card-bg);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            display: inline-block;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--primary-bg);
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(107, 227, 191, 0.1);
+        }
+
+        .steps-container {
+            counter-reset: step;
+        }
+
+        .numbered-step {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 25px;
+        }
+
+        .numbered-step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--accent);
+            color: var(--primary-bg);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .numbered-step h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .toc {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+        }
+
+        .toc-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .toc-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toc-list a:hover {
+            color: var(--accent);
+        }
+
+        .toc-list a::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .step {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.7329 7.26862C20.0726 7.61174 20.0726 8.16312 19.7329 8.50623L13.0396 15.2681C12.6999 15.6112 12.1541 15.6112 11.8144 15.2681L8.26712 11.6841C7.92745 11.341 7.92745 10.7896 8.26712 10.4465C8.60678 10.1034 9.15263 10.1034 9.49229 10.4465L12.427 13.4127L18.5077 7.26862C18.8474 6.92551 19.3932 6.92551 19.7329 7.26862Z" fill="#6BE3BF"/>
+                    <path d="M4.26712 7.26862C4.60678 6.92551 5.15263 6.92551 5.49229 7.26862L11.427 13.2681C11.7667 13.6112 12.3125 13.6112 12.6522 13.2681L15.7329 10.1517C16.0726 9.80861 16.6184 9.80861 16.9581 10.1517C17.2977 10.4948 17.2977 11.0462 16.9581 11.3893L13.2644 15.1243C12.9248 15.4674 12.379 15.4674 12.0393 15.1243L5.49229 8.50623C5.15263 8.16312 4.60678 8.16312 4.26712 8.50623C3.92745 8.84935 3.92745 9.40072 4.26712 9.74384L10.8144 16.3622C11.1541 16.7053 11.1541 17.2567 10.8144 17.5998C10.4747 17.9429 9.92889 17.9429 9.58922 17.5998L3.04193 10.9814C2.36259 10.2951 2.36259 9.17698 3.04193 8.49073L4.26712 7.26862Z" fill="#6BE3BF"/>
+                </svg>
+                <h1>Hyperliquid</h1>
+            </div>
+            <nav>
+                <a href="#what-is-hyperliquid">Overview</a>
+                <a href="#understanding">Ecosystem</a>
+                <a href="#what-you-need">Prerequisites</a>
+                <a href="#step-by-step">Guide</a>
+                <a href="#referral-info">Referrals</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Hyperliquid OnRamp Guide</h1>
+            <p>Your complete guide to getting started with the Hyperliquid ecosystem - from wallet setup to trading, staking, and beyond.</p>
+            <div class="note">
+                <strong>Note:</strong> These instructions are intended for Desktop/Browser apps/wallets.
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="toc">
+            <div class="toc-title">Table of Contents</div>
+            <ul class="toc-list">
+                <li><a href="#what-is-hyperliquid">What is Hyperliquid?</a></li>
+                <li><a href="#understanding">Understanding the Ecosystem</a></li>
+                <li><a href="#what-you-need">What You'll Need</a></li>
+                <li><a href="#step-by-step">Step-by-Step Guide</a></li>
+                <li><a href="#what-you-get">What You'll Have Access To</a></li>
+                <li><a href="#tips">Tips for a Smooth Experience</a></li>
+                <li><a href="#why-it-matters">Why This Matters</a></li>
+                <li><a href="#next-steps">Next Steps</a></li>
+                <li><a href="#referral-info">Referral Information</a></li>
+            </ul>
+        </div>
+
+        <section id="what-is-hyperliquid">
+            <h2>What is Hyperliquid?</h2>
+            <p>Hyperliquid is a high-performance blockchain built specifically for onchain finance, featuring HyperBFT consensus for single-block finality. It consists of two main components: HyperCore (supporting high-throughput perpetual futures and spot trading) and HyperEVM (a general-purpose smart contract platform). This unified system allows for seamless integration of trading, liquidity, and applications in one ecosystem that processes over 200,000 orders per second.</p>
+        </section>
+
+        <section id="understanding">
+            <h2>Understanding the Hyperliquid Ecosystem</h2>
+            <p>Before diving into the process, let's clarify the key components:</p>
+
+            <h3>The Four Account Types</h3>
+            <div class="card">
+                <ol>
+                    <li><strong>Hyperliquid Core (HyperCore)</strong> - Your assets ON the application (app.hyperliquid.xyz)</li>
+                    <li><strong>Hyperliquid EVM (HyperEVM)</strong> - The L1 chain where assets appear in your wallet (like Rabby)</li>
+                    <li><strong>Three Functional Accounts within HyperCore:</strong>
+                        <ul>
+                            <li><strong>Perpetual Account</strong> - For leveraged trading and vaults</li>
+                            <li><strong>Spot Account</strong> - For non-leveraged assets and trading</li>
+                            <li><strong>Staking Account</strong> - For staking on Hyperliquid L1 (8-day cooldown: 1+7 days)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cross-Chain Movement</strong> - Swapping between HyperCore and HyperEVM to interact with other protocols</li>
+                </ol>
+            </div>
+
+            <div class="image-container">
+                <img src="https://i.imgur.com/2XpJL9E.png" alt="Portfolio Page">
+                <div class="caption">The Portfolio page shows all your account balances and provides easy access to the most important transfer functions</div>
+            </div>
+        </section>
+
+        <section id="what-you-need">
+            <h2>What You'll Need Before Starting</h2>
+            
+            <div class="numbered-step">
+                <h4>Rabby Wallet with Two Types of Gas</h4>
+                <ul>
+                    <li><strong>Arbitrum ETH</strong> for operations connecting to/from Arbitrum</li>
+                    <li><strong>$HYPE (EVM)</strong> for interactions on the Hyperliquid L1</li>
+                    <li>Rabby provides native Hyperliquid support (MetaMask works too but requires custom network setup)</li>
+                    <li>Without both types of gas, you'll be limited in what transactions you can perform</li>
+                </ul>
+            </div>
+            
+            <div class="numbered-step">
+                <h4>Initial Funding Asset Options</h4>
+                <ul>
+                    <li><strong>Arbitrum:</strong> USDC, USDT, and USDC.e</li>
+                    <li><strong>Bitcoin:</strong> BTC</li>
+                    <li><strong>Ethereum:</strong> ETH</li>
+                    <li><strong>Solana:</strong> SOL and Fartcoin</li>
+                    <li>SOL offers one of the smoothest experiences for beginners</li>
+                </ul>
+            </div>
+            
+            <div class="numbered-step">
+                <h4>VPN (Potentially)</h4>
+                <ul>
+                    <li>Depending on your country of residence</li>
+                    <li>Ensure you're following all legal requirements for your region</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="step-by-step">
+            <h2>Step-by-Step OnRamp Guide</h2>
+
+            <h3>1. Setting Up Your Wallet</h3>
+            <div class="steps-container">
+                <div class="numbered-step">
+                    <h4>Create a Rabby Wallet</h4>
+                    <ul>
+                        <li>Go to rabby.io and follow their installation instructions</li>
+                        <li>Securely back up your seed phrase in multiple locations</li>
+                        <li>Create a strong password</li>
+                    </ul>
+                </div>
+                
+                <div class="numbered-step">
+                    <h4>Get Arbitrum ETH to Your New Wallet</h4>
+                    <div class="card">
+                        <h4>Option A: In-wallet swap (Simplest but potentially higher fees)</h4>
+                        <ul>
+                            <li>Use Rabby's built-in swap feature to convert ETH or other assets to Arbitrum ETH</li>
+                            <li>Follow the prompts and confirm the transaction</li>
+                        </ul>
+                        
+                        <h4>Option B: SimpleSwap or similar service (Good balance of ease and cost)</h4>
+                        <ul>
+                            <li>Visit SimpleSwap.io</li>
+                            <li>Select your source asset and Arbitrum ETH as destination</li>
+                            <li>Enter your Rabby wallet address</li>
+                            <li>Complete the swap</li>
+                        </ul>
+                        
+                        <h4>Option C: Bridge service (Most cost-effective)</h4>
+                        <ul>
+                            <li>Use Orbiter Finance or Synapse Protocol</li>
+                            <li>Follow their instructions to bridge to Arbitrum</li>
+                        </ul>
+                    </div>
+                    <p><strong>Start with just 0.004-0.008 ETH</strong> (approximately $10-20)</p>
+                    <p>Confirm the transaction appears in your Rabby wallet</p>
+                </div>
+            </div>
+
+            <h3>2. Funding Your Hyperliquid Account</h3>
+            <div class="steps-container">
+                <div class="numbered-step">
+                    <h4>Connect Your Wallet to Hyperliquid</h4>
+                    <ul>
+                        <li>Visit <a href="https://app.hyperliquid.xyz/join/0XBRAWLIE" style="color: var(--accent);">app.hyperliquid.xyz</a></li>
+                        <li>Click "Connect Wallet" and select Rabby</li>
+                        <li>Follow prompts to authorize the connection</li>
+                    </ul>
+                </div>
+                
+                <div class="numbered-step">
+                    <h4>Deposit Your Chosen Asset to Hyperliquid</h4>
+                    <ul>
+                        <li>Navigate to the "Deposit" section</li>
+                        <li>Select your deposit asset (SOL, BTC, ETH, USDC, USDT, or USDC.e)</li>
+                        <li>Enter the amount you wish to deposit</li>
+                        <li>Follow the bridge instructions</li>
+                        <li>Allow a few minutes for confirmation</li>
+                    </ul>
+
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/7dMgGpr.png" alt="Deposit Chain Selection">
+                        <div class="caption">The deposit interface showing all available chains: Arbitrum, Bitcoin, Ethereum, and Solana</div>
+                    </div>
+
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/kpY9l84.png" alt="Deposit SOL Interface">
+                        <div class="caption">The SOL deposit interface - note the minimum deposit amount of 0.2 SOL and the warning about network requirements</div>
+                    </div>
+                </div>
+                
+                <div class="numbered-step">
+                    <h4>Important: Verify Your Deposit Location</h4>
+                    <div class="alert">
+                        <div class="alert-title">
+                            <svg class="alert-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            Critical Check
+                        </div>
+                        <p><strong>Double check</strong> how your assets are reflected in your HyperCore account and confirm whether they landed in your Spot or Perp equity. This verification is crucial before taking any further actions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>3. Converting Your Assets</h3>
+            <div class="steps-container">
+                <div class="numbered-step">
+                    <h4>Convert to USDC if Needed (SPOT)</h4>
+                    <ul>
+                        <li>If you deposited something other than USDC:</li>
+                        <li>Go to the Spot trading section</li>
+                        <li>Select the appropriate trading pair (e.g., SOL/USDC)</li>
+                        <li>Create a market or limit sell order</li>
+                        <li>Confirm the transaction</li>
+                    </ul>
+
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/nLlGkKL.png" alt="Trading Dashboard">
+                        <div class="caption">The trading dashboard where you can trade assets and monitor your positions</div>
+                    </div>
+                </div>
+                
+                <div class="numbered-step">
+                    <h4>Convert USDC (SPOT) to USDC (PERPS)</h4>
+                    <ul>
+                        <li>Navigate to the account section</li>
+                        <li>Find the option to transfer between accounts</li>
+                        <li>Move a portion of your USDC from SPOT to PERPS account</li>
+                        <li>This step enables leveraged trading and vault participation</li>
+                    </ul>
+
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/QTsXRXH.png" alt="Perps-Spot Transfer">
+                        <div class="caption">The interface for transferring USDC between your Perps and Spot accounts</div>
+                    </div>
+                </div>
+                
+                <div class="numbered-step">
+                    <h4>Buy $HYPE with USDC (SPOT)</h4>
+                    <ul>
+                        <li>Return to Spot trading</li>
+                        <li>Select the HYPE/USDC trading pair</li>
+                        <li>Create a buy order for $HYPE</li>
+                        <li>Confirm the transaction</li>
+                    </ul>
+                </div>
+                
+                <div class="numbered-step">
+                    <h4>Convert $HYPE (CORE) to $HYPE (EVM)</h4>
+                    <ul>
+                        <li>Find the Core→EVM conversion option</li>
+                        <li>Select the amount of $HYPE to convert</li>
+                        <li>Approve the transaction</li>
+                        <li>This makes your $HYPE visible in your Rabby wallet for ecosystem interactions</li>
+                    </ul>
+
+                    <div class="alert">
+                        <div class="alert-title">
+                            <svg class="alert-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            Critical
+                        </div>
+                        <p>Keep some $HYPE(EVM) in your wallet as gas for Hyperliquid L1 transactions</p>
+                    </div>
+
+                    <div class="image-container">
+                        <img src="https://i.imgur.com/jJu6kjP.png" alt="EVM Transfer">
+                        <div class="caption">The interface for transferring assets between HyperCore (Spot) and HyperEVM</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>4. Optional: Setting Up Staking</h3>
+            <div class="steps-container">
+                <div class="numbered-step">
+                    <h4>Move SPOT $HYPE to Staking Account</h4>
+                    <ul>
+                        <li>Navigate to the Staking section</li>
+                        <li>Transfer $HYPE from SPOT to Staking account</li>
+                        <li>Confirm the transaction</li>
+                    </ul>
+                </div>
+                
+                <div class="numbered-step">
+                    <h4>Delegate to a Validator</h4>
+                    <ul>
+                        <li>Select a validator from the list</li>
+                        <li>Enter the amount to delegate</li>
+                        <li>Confirm the delegation</li>
+                        <li>Remember: an 8-day cooldown applies to unstaking</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://i.imgur.com/YDr4c9D.png" alt="Staking Interface">
+                <div class="caption">The Staking interface shows available validators, their performance metrics, and commission rates</div>
+            </div>
+        </section>
+
+        <section id="what-you-get">
+            <h2>What You Now Have Access To</h2>
+            <div class="card">
+                <p>After completing this guide, you'll have:</p>
+                <ul>
+                    <li><strong>Assets in your Spot Account</strong> - For buying/selling spot assets</li>
+                    <li><strong>Assets in your Perp Account</strong> - For leveraged trading and vault participation</li>
+                    <li><strong>$HYPE in your EVM wallet</strong> - For ecosystem interactions like providing liquidity</li>
+                    <li><strong>Optional: Staked $HYPE</strong> - Earning staking rewards (subject to 8-day unstaking period)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>Tips for a Smooth Experience</h2>
+            <ul>
+                <li><strong>Read All Prompts Carefully</strong> - You'll encounter multiple signing requests and confirmations</li>
+                <li><strong>Start Small</strong> - Test the process with smaller amounts before committing larger funds</li>
+                <li><strong>Keep Both Types of Gas in Your Wallet</strong> - Always maintain some Arbitrum ETH AND $HYPE(EVM) for transactions</li>
+                <li><strong>Check Account Balances</strong> - Verify assets appear in the correct accounts before trading</li>
+                <li><strong>Be Patient</strong> - Some transactions may take a few minutes to confirm, especially cross-chain</li>
+            </ul>
+        </section>
+
+        <section id="why-it-matters">
+            <h2>Why This Matters</h2>
+            <p>Understanding the different account types isn't just technical trivia—it determines what you can actually do with your assets:</p>
+            <ul>
+                <li>Funds in your <strong>Perp account</strong> are the only ones you can use for leveraged trading or vaults</li>
+                <li>Only <strong>$HYPE(EVM)</strong> in your wallet can interact with external protocols like HyperSwap</li>
+                <li><strong>Staked $HYPE</strong> generates yield but comes with that 8-day lockup period</li>
+            </ul>
+            <p>This account structure gives you flexibility but requires intentional management of where your assets live.</p>
+        </section>
+
+        <section id="next-steps">
+            <h2>Next Steps in the Ecosystem</h2>
+            <p>Now that you're set up, you can explore:</p>
+            <ul>
+                <li>Providing liquidity on HyperSwap (HYPE-USDT0 pool)</li>
+                <li>Setting up concentrated liquidity positions</li>
+                <li>Participating in yield vaults in the Perp account</li>
+                <li>Trading with leverage in the Perp markets</li>
+            </ul>
+        </section>
+
+        <section id="referral-info">
+            <h2>Referral Information</h2>
+            <div class="referral-info">
+                <h3>Referral Links</h3>
+                <div class="referral-links">
+                    <a href="https://app.hyperliquid.xyz/join/0XBRAWLIE" class="btn">Hyperliquid: Join with Referral</a>
+                    <a href="https://app.hyperswap.exchange/#/swap?referral=oxbrawlie" class="btn">HyperSwap: Trade with Referral</a>
+                </div>
+                
+                <h3>Referral Codes</h3>
+                <p>If you prefer not to click links, you can manually enter these codes:</p>
+                <ul>
+                    <li>Hyperliquid: <span class="referral-code">0XBRAWLIE</span></li>
+                    <li>HyperSwap: <span class="referral-code">oxbrawlie</span></li>
+                </ul>
+                
+                <p>Need more hands-on help? Feel free to reach out to me directly.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Hyperliquid OnRamp Guide</p>
+            <p>This guide is community-created and not an official Hyperliquid product.</p>
+        </div>
+    </footer>
+</body>
+</html>
